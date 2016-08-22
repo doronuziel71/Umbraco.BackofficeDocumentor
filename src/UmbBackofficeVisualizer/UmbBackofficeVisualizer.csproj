@@ -271,7 +271,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\App_Plugins\UmbracoBackofficeVisualizer\dashboard.htm" />
+    <Content Include="content\App_Plugins\UmbracoBackofficeVisualizer\dashboard.htm" />
     <Content Include="Config\grid.editors.config.js" />
   </ItemGroup>
   <ItemGroup>
@@ -293,8 +293,8 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="Config\ClientDependency.config" />
-    <Content Include="Content\App_Plugins\UmbracoBackofficeVisualizer\Views\BackofficeVisualizer\Index.cshtml" />
-    <Content Include="Content\App_Plugins\UmbracoBackofficeVisualizer\Views\Web.config" />
+    <Content Include="content\App_Plugins\UmbracoBackofficeVisualizer\Views\BackofficeVisualizer\Index.cshtml" />
+    <Content Include="content\App_Plugins\UmbracoBackofficeVisualizer\Views\Web.config" />
     <Content Include="UmbBackofficeVisualizer.nuspec" />
   </ItemGroup>
   <ItemGroup>
