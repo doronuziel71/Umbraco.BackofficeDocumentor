@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/doronuziel71/Umbraco.BackofficeDocumentor</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>This is an alpha version and should not be used int production other than for experemintations.</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>Umbraco</tags>
+   
+  </metadata>
+  <files>
+    <file src="./App_Plugins/**/*.*" target="./App_Plugins/"/>
+
+  </files>
+  
+</package>
