@@ -287,7 +287,8 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>cd $(ProjectDir) 
+    <PostBuildEvent>xcopy $(TargetPath) E:\SVN\Doz\src\Doz\Doz.Web\bin  /S /I /E /Y
+cd $(ProjectDir) 
 pack.bat</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

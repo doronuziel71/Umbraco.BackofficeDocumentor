@@ -24,27 +24,60 @@ namespace Umbraco.BackofficeDocumentor.Services
         {
 
             var model = new BackofficeDocumentModel();
-            var contentTypes = _services.ContentTypeService.GetAllContentTypes().Where(x=>!x.IsContainer).Select(ToModel).ToList();
+            var allCt = _services.ContentTypeService.GetAllContentTypes().ToList();
+            var contentTypes =allCt.Where(x=>!x.IsContainer).Select(ToModel).ToList();
+
+
+            var allContainerIds =
+                contentTypes.Where(x => contentTypes.All(y => y.Id != x.ParentId))
+                    .Select(x => x.ParentId)
+                    .Distinct()
+                    .ToArray();
+
+            var allContainers = _services.ContentTypeService.GetContentTypeContainers(allContainerIds);
 
             var components = contentTypes.Where(cmp => contentTypes.Any(ct => ct.ImplementsIds.Contains(cmp.Id))).ToList();
 
             model.Components = components;
 
-
-            model.ContentDocTypes = contentTypes.Where(ct => components.All(cmp => cmp.Id != ct.Id)).ToList();
-
-            model.ContentDocTypes.ForEach(
-                cdt =>
+            foreach (var container in allContainers)
+            {
+                var group = new BackofficeDocumentGroupModel
                 {
-                    cdt.Implements = contentTypes.Where(ct => cdt.ImplementsIds.Contains(ct.Id)).ToList();
-                    cdt.Inherits = contentTypes.SingleOrDefault(ct => ct.Id == cdt.InheritsId);
-                });
+                    Id = container.Id,
+                    Name = container.Name,
+                    ContentTypeDocs = contentTypes.Where(ct => IsDescendantOf(container.Id, ct, contentTypes)).ToList()
+                };
+                model.Groups.Add(group);
+            }
+
+            //model.ContentDocTypes = contentTypes.Where(ct => components.All(cmp => cmp.Id != ct.Id)).ToList();
+
+            //model.ContentDocTypes.ForEach(
+            //    cdt =>
+            //    {
+            //        cdt.Implements = contentTypes.Where(ct => cdt.ImplementsIds.Contains(ct.Id)).ToList();
+            //        cdt.Inherits = contentTypes.SingleOrDefault(ct => ct.Id == cdt.InheritsId);
+            //    });
 
 
 
             model.DataTypes = CreateDataTypesDescriptor(_usedDataTypes);
 
             return model;
+        }
+
+        private bool IsDescendantOf(int id, VisualizerContentTypeModel ct, List<VisualizerContentTypeModel> contentTypes)
+        {
+            if (ct == null)
+                return false;
+            if (ct.ParentId == id)
+                return true;
+
+            var parent = contentTypes.FirstOrDefault(x => x.Id == ct.ParentId);
+            return IsDescendantOf(id, parent, contentTypes);
+
+
         }
 
         private List<DataTypeDescripton> CreateDataTypesDescriptor(IEnumerable<IDataTypeDefinition> usedDataTypes)
@@ -61,6 +94,7 @@ namespace Umbraco.BackofficeDocumentor.Services
                 return new VisualizerContentTypeModel
                 {
                     Name = contentType.Name,
+                    ParentId=contentType.ParentId,
                     Alias = contentType.Alias,
                     Id = contentType.Id,
                     Description = contentType.Description,

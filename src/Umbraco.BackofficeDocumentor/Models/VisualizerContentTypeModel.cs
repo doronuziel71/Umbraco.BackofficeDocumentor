@@ -15,6 +15,7 @@ namespace Umbraco.BackofficeDocumentor.Models
         public List<VisualizerContentTypeModel> Implements { get; set; }
         public VisualizerContentTypeModel Inherits { get; set; }
         public DocTypePropertiesModel Properties { get; set; }
+        public int ParentId { get; set; }
 
         public VisualizerContentTypeModel()
         {

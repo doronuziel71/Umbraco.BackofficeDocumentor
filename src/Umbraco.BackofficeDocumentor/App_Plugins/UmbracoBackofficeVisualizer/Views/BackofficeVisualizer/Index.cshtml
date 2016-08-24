@@ -2,11 +2,8 @@
 @using Newtonsoft.Json.Linq
 @using Umbraco.BackofficeDocumentor.Models
 @using Umbraco.BackofficeDocumentor.Services
+@model BackofficeDocumentModel
 
-@{
-    var visualizer = new BackofficeDocumentor();
-    var snapshot = visualizer.CreateSnapshot();
-}
 @functions
 {
 
@@ -187,6 +184,26 @@
 
 
 }
+
+@helper Group(BackofficeDocumentGroupModel item)
+{
+    <section class="row" style="page-break-after: always;">
+        <div class="col-xs-12">
+         <h1>@item.Name</h1>
+            @foreach (var cmp in item.ContentTypeDocs)
+            {
+
+                @DocTypeDescriptor(cmp)
+                @PropertiesDescriptiors(cmp)
+
+                <hr />
+
+            }
+
+
+        </div>
+    </section>
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -197,35 +214,11 @@
 </head>
 <body>
     <div class="container">
-        <section class="row">
-            <div class="col-xs-12">
-                <h1>
-                    Components
-                </h1>
-                @foreach (var cmp in Model.Components)
-                {
-
-                    @DocTypeDescriptor(cmp)
-                }
-
-            </div>
-        </section>
-        <section class="row">
-            <div class="col-xs-12">
-                <h1>Content Types</h1>
-                @foreach (var cmp in Model.ContentDocTypes)
-                {
-
-                    @DocTypeDescriptor(cmp)
-                    @PropertiesDescriptiors(cmp)
-
-                    <hr />
-
-                }
-
-
-            </div>
-        </section>
+      
+      @foreach (var group in Model.Groups)
+      {
+          @Group(group)
+      }
         <section class="row">
             <div class="col-xs-12">
                 <h1>Data Types</h1>
