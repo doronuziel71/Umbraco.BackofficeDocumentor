@@ -48,6 +48,12 @@ namespace Umbraco.BackofficeDocumentor.Services
                     Name = container.Name,
                     ContentTypeDocs = contentTypes.Where(ct => IsDescendantOf(container.Id, ct, contentTypes)).ToList()
                 };
+                group.ContentTypeDocs.ForEach(
+                    cdt =>
+                    {
+                        cdt.Implements = contentTypes.Where(ct => cdt.ImplementsIds.Contains(ct.Id)).ToList();
+                        cdt.Inherits = contentTypes.SingleOrDefault(ct => ct.Id == cdt.InheritsId);
+                    });
                 model.Groups.Add(group);
             }
 
@@ -84,7 +90,7 @@ namespace Umbraco.BackofficeDocumentor.Services
         {
             return usedDataTypes.Where(x => x.Id > 0).Select(dt => new DataTypeDescripton
             {
-                Id = dt.Id, Name = dt.Name, PropertyEditorAlias = dt.PropertyEditorAlias, PreValues = _services.DataTypeService.GetPreValuesCollectionByDataTypeId(dt.Id)
+                Id = dt.Id, Name = dt.Name, PropertyEditorAlias = dt.PropertyEditorAlias, PreValues = _services.DataTypeService.GetPreValuesCollectionByDataTypeId(dt.Id).PreValuesAsDictionary
             }).ToList();
         }
 

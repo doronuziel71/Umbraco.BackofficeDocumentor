@@ -33,6 +33,8 @@ namespace Umbraco.BackofficeDocumentor.Services
 
         public static IHtmlString ContentTypeLink(this HtmlHelper html, VisualizerContentTypeModel model, object htmlAttributes=null)
         {
+            if (model == null)
+                return null;
             var tb=new TagBuilder("a");
             tb.MergeAttribute("class","small");
             tb.MergeAttribute("href","#" + model.FormatId());
