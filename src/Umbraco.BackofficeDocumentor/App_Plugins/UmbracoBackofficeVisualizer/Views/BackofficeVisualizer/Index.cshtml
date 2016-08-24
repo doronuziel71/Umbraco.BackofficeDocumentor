@@ -4,70 +4,28 @@
 @using Umbraco.BackofficeDocumentor.Services
 @model BackofficeDocumentModel
 
-@functions
-{
 
-    string ContentTypeId(VisualizerContentTypeModel model)
-    {
-        return string.Format("cmp_{0}", model.Id);
-    }
 
-    bool IsValidJson(string strInput)
-    {
-        strInput = strInput.Trim();
-        if ((strInput.StartsWith("{") && strInput.EndsWith("}")) || //For object
-            (strInput.StartsWith("[") && strInput.EndsWith("]"))) //For array
-        {
-            try
-            {
-                var obj = JToken.Parse(strInput);
-                return true;
-            }
-            catch (JsonReaderException jex)
-            {
-                //Exception in parsing json
-                Console.WriteLine(jex.Message);
-                return false;
-            }
-            catch (Exception ex) //some other exception
-            {
-                Console.WriteLine(ex.ToString());
-                return false;
-            }
-        }
-        else
-        {
-            return false;
-        }
-    }
 
-}
-
-@helper ContentTypeLink(VisualizerContentTypeModel model)
-{
-    if (model == null)
-    {
-        return;
-    }
-    <a class="small" href="#@ContentTypeId(model)">@(model.Name)</a>
-}
 @helper DocTypeDescriptor(VisualizerContentTypeModel cmp)
 {
-    <h2 id="@ContentTypeId(cmp)">
+    <h2 id="@cmp.FormatId()">
         <i class="@cmp.Icon"></i>
         @cmp.Name
         @if (cmp.Inherits != null || cmp.Implements.Any())
         {
             <text>: </text>
         }
-        @ContentTypeLink(cmp.Inherits)
+        @Html.ContentTypeLink(cmp)
+     
         @if (cmp.Inherits != null)
         {
             <span>, </span>
         }
         @foreach (var item in cmp.Implements)
         {
-            @ContentTypeLink(item)
+            @Html.ContentTypeLink(item)
+          
             if (cmp.Implements.IndexOf(item) < cmp.Implements.Count - 1)
             {
                 <span>, </span>
@@ -166,7 +124,7 @@
                         @pv.Key
                     </td>
                     <td>
-                        @if (pv.Value.Value != null && IsValidJson(pv.Value.Value))
+                        @if (pv.Value.Value != null && pv.Value.Value.IsValidJson())
                         {
                             <pre>@pv.Value.Value</pre>
                         }
