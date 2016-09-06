@@ -2,8 +2,9 @@
 
 namespace Umbraco.BackofficeDocumentor.Models
 {
-    public class ContentHirarchy
+    public interface ICommentable
     {
-        public List<ContentTypeNode> Types { get; set; }
+        List<string> Comments { get; set; }
+
     }
 }

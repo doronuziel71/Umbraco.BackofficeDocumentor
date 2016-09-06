@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using Newtonsoft.Json.Linq;
 using Umbraco.BackofficeDocumentor.Models;
+using Umbraco.Core.Models;
 
 namespace Umbraco.BackofficeDocumentor.Services
 {
@@ -48,6 +49,17 @@ namespace Umbraco.BackofficeDocumentor.Services
             
 
             return new MvcHtmlString(tb.ToString());
+        }
+
+
+        public static PreValueModel ToModel(this PreValue prevalue)
+        {
+            return new PreValueModel
+            {
+                Id = prevalue.Id,
+                SortOrder = prevalue.SortOrder,
+                Value = prevalue.Value
+            };
         }
     }
 }

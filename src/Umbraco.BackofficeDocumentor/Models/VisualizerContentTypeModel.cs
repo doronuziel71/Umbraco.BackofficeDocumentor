@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Umbraco.BackofficeDocumentor.Models
 {
-    public class VisualizerContentTypeModel
+    public class VisualizerContentTypeModel : Commentable
     {
         public string Name { get; set; }
         public string Alias { get; set; }
@@ -17,7 +17,7 @@ namespace Umbraco.BackofficeDocumentor.Models
         public DocTypePropertiesModel Properties { get; set; }
         public int ParentId { get; set; }
 
-        public VisualizerContentTypeModel()
+        public VisualizerContentTypeModel() : base()
         {
             Implements=new List<VisualizerContentTypeModel>();
             ImplementsIds=Enumerable.Empty<int>();

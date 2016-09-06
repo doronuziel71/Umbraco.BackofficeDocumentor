@@ -1,5 +1,24 @@
-﻿<div class="clearfix">
-    <a class="btn btn-primary" href="/umbraco/backoffice/BackofficeVisualizer/index" target="_blank"><i class="icon-window-popin"></i>Open in new window</a>
+﻿<div ng-controller="backofficeDocumentorCtrl">
+    <div class="clearfix">
+       
+        <div class="btn-group">
+            <button type="button" class="btn" ng-click="makeSnapshot()" title="New"><i class="fa fa-2x fa-file-o"></i></button>
+            <button type="button" class="btn" ng-click="showList()" title="Open"><i class="fa fa-2x fa-folder-open-o"></i></button>
+            <button ng-if="obj && file.name" type="button" class="btn" ng-click="rename()" title="Save"><i class="fa fa-2x fa-save"></i></button>
+            <a class="btn" ng-if="obj && file.name" href="/umbraco/backoffice/BackofficeVisualizer/index?file={{file.name}}" title="Print" target="_blank"><i class="fa fa-2x fa-print"></i></a>
+            <a class="btn" ng-if="obj && file.name" href="/umbraco/backoffice/BackofficeVisualizer/asdoc?file={{file.name}}" title="Print" target="_blank"><i class="fa fa-2x fa-file-word-o"></i></a>
+            <button ng-if="obj && file.name" type="button" class="btn" ng-click="del()" title="Delete"><i class="fa fa-2x fa-remove"></i></button>
+        </div>
+    </div>
+    <hr />
+
+    <div ng-if="obj">
+        <div class="clearfix">
+            <input type="text"  ng-model="file.name" class="input-medium search-query span11" />
+         
+        </div>
+        <br />
+        <hr />
+        <div backoffice-snapshot  style="max-height: 80vh;overflow-y: scroll" data="obj"></div> 
+    </div>
 </div>
-<hr />
-<div class="clearfix"><iframe style="width:100%;border:1px;height:700px;" src="/umbraco/backoffice/BackofficeVisualizer/index"></iframe></div>

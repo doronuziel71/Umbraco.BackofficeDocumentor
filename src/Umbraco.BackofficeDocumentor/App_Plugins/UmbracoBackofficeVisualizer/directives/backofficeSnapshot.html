@@ -1,0 +1,13 @@
+﻿
+ 
+<section class="row" style="page-break-after: always;" ng-repeat="group in data.Groups">
+
+        <h1>{{group.Name}}</h1>
+        <div doctype-descriptor ng-repeat="dt in group.ContentTypeDocs" data="dt"></div>
+
+</section>
+
+<section>
+    <h1>Data Types</h1>
+    <div datatype-descriptor ng-repeat="dt in data.DataTypes" data="dt"></div>
+</section>

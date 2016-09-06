@@ -4,8 +4,23 @@
 @using Umbraco.BackofficeDocumentor.Services
 @model BackofficeDocumentModel
 
-
-
+@{
+    var isDoc = ((bool?) ViewBag.IsDoc).GetValueOrDefault();
+}
+@helper Comments(ICommentable commentable)
+{
+    if (!commentable.Comments.Any())
+    {
+        return;
+    }
+    <ol>
+        @foreach (var comment in commentable.Comments)
+        {
+            <li>@comment</li>
+        }
+    </ol>
+    <hr />
+}
 
 @helper DocTypeDescriptor(VisualizerContentTypeModel cmp)
 {
@@ -74,24 +89,24 @@
         </thead>
         @foreach (var tab in cmp.Properties.Tabs)
         {
-        <tr>
+            <tr>
 
-            <td colspan="6" class="text-center"><strong class="h3">@tab.Name</strong></td>
+                <td colspan="6" class="text-center"><strong class="h3">@tab.Name</strong></td>
 
-        </tr>
+            </tr>
             foreach (var p in tab.Properties)
             {
-        <tr>
+                <tr>
 
-            <td>@p.Alias</td>
-            <td>@p.Name</td>
-            <td>@p.Description</td>
-            <td>@p.DataTypeName</td>
-            <td>@p.Required</td>
-            <td>@p.Regex</td>
+                    <td>@p.Alias</td>
+                    <td>@p.Name</td>
+                    <td>@p.Description</td>
+                    <td>@p.DataTypeName</td>
+                    <td>@p.Required</td>
+                    <td>@p.Regex</td>
 
 
-        </tr>
+                </tr>
             }
         }
     </table>
@@ -117,24 +132,24 @@
         <table class="table table-bordered">
             @foreach (var pv in dt.PreValues)
             {
-            <tr>
-                <td>
+                <tr>
+                    <td>
 
 
-                    @pv.Key
-                </td>
-                <td>
-                    @if (pv.Value.Value != null && pv.Value.Value.IsValidJson())
+                        @pv.Key
+                    </td>
+                    <td>
+                        @if (pv.Value.Value != null && pv.Value.Value.IsValidJson())
                         {
-                        <pre>@pv.Value.Value</pre>
+                            <pre>@pv.Value.Value</pre>
                         }
                         else
                         {
-                        <text>@pv.Value.Value</text>
+                            <text>@pv.Value.Value</text>
                         }
 
-                </td>
-            </tr>
+                    </td>
+                </tr>
 
             }
         </table>
@@ -151,10 +166,11 @@
             @foreach (var cmp in item.ContentTypeDocs)
             {
 
-            @DocTypeDescriptor(cmp)
-            @PropertiesDescriptiors(cmp)
+                @DocTypeDescriptor(cmp)
+                @PropertiesDescriptiors(cmp)
 
-            <hr />
+                <hr />
+                @Comments(cmp)
 
             }
 
@@ -167,8 +183,12 @@
 <head>
     <title></title>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-    <link href="/app_plugins/umbracobackofficevisualizer/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/app_plugins/umbracobackofficevisualizer/css/umbraco-icons.css" rel="stylesheet" />
+    @if (!isDoc)
+    {
+        <link href="/app_plugins/umbracobackofficevisualizer/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="/app_plugins/umbracobackofficevisualizer/css/umbraco-icons.css" rel="stylesheet" />
+    }
+   
 </head>
 <body>
     <div class="container">

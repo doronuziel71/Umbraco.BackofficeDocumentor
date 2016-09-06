@@ -255,12 +255,16 @@
   <ItemGroup>
     <Compile Include="Bootstrap.cs" />
     <Compile Include="Controllers\BackofficeVisualizerController.cs" />
+    <Compile Include="Models\PreValueModel.cs" />
+    <Compile Include="Models\SnapshotSaveOrRenameModel.cs" />
+    <Compile Include="Controllers\SnapshotsController.cs" />
     <Compile Include="Dashboard.cs" />
+    <Compile Include="Models\BackofficeDocumentGroupModel.cs" />
     <Compile Include="Models\BackofficeDocumentModel.cs" />
-    <Compile Include="Models\ContentHirarchy.cs" />
-    <Compile Include="Models\ContentTypeNode.cs" />
+    <Compile Include="Models\Commentable.cs" />
     <Compile Include="Models\DataTypeDescripton.cs" />
     <Compile Include="Models\DocTypePropertiesModel.cs" />
+    <Compile Include="Models\ICommentable.cs" />
     <Compile Include="Models\PropertyDescriptorModel.cs" />
     <Compile Include="Models\TabModel.cs" />
     <Compile Include="Models\VisualizerContentTypeModel.cs" />
@@ -268,14 +272,37 @@
     <Compile Include="Services\BackofficeDocumentor.cs" />
     <Compile Include="Services\Extensions.cs" />
     <Compile Include="Services\IBackofficeDocumentor.cs" />
+    <Compile Include="Services\ISnapshotService.cs" />
+    <Compile Include="Services\SnapshotService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\UmbracoBackofficeVisualizer\css\bootstrap.min.css" />
     <Content Include="App_Plugins\UmbracoBackofficeVisualizer\css\umbraco-icons.css" />
     <None Include="app.config" />
+    <Content Include="App_Plugins\UmbracoBackofficeVisualizer\directives\backofficeDocumentorComments.html" />
+    <Content Include="App_Plugins\UmbracoBackofficeVisualizer\directives\backofficeSnapshot.html" />
+    <Content Include="App_Plugins\UmbracoBackofficeVisualizer\directives\backofficeSnapshot.js" />
+    <Content Include="App_Plugins\UmbracoBackofficeVisualizer\directives\datatypeDescriptor.html" />
+    <Content Include="App_Plugins\UmbracoBackofficeVisualizer\directives\datatypeDescriptor.js" />
+    <Content Include="App_Plugins\UmbracoBackofficeVisualizer\directives\doctypeDescriptor.html" />
+    <Content Include="App_Plugins\UmbracoBackofficeVisualizer\directives\doctypeDescriptor.js" />
+    <Content Include="App_Plugins\UmbracoBackofficeVisualizer\list\list.html" />
+    <Content Include="App_Plugins\UmbracoBackofficeVisualizer\list\list.js" />
+    <Content Include="App_Plugins\UmbracoBackofficeVisualizer\main.js" />
+    <Content Include="App_Plugins\UmbracoBackofficeVisualizer\services\snapshotService.js" />
     <Content Include="App_Plugins\UmbracoBackofficeVisualizer\Views\BackofficeVisualizer\Index.cshtml" />
     <Content Include="App_Plugins\UmbracoBackofficeVisualizer\Views\Web.config" />
+    <Content Include="App_Plugins\UmbracoBackofficeVisualizer\directives\backofficeDocumentorComments.js" />
+    <None Include="App_Plugins\UmbracoBackofficeVisualizer\package.manifest" />
+    <Content Include="App_Plugins\UmbracoBackofficeVisualizer\fonts\fontawesome-webfont.eot" />
+    <Content Include="App_Plugins\UmbracoBackofficeVisualizer\fonts\fontawesome-webfont.ttf" />
+    <Content Include="App_Plugins\UmbracoBackofficeVisualizer\fonts\fontawesome-webfont.woff" />
+    <Content Include="App_Plugins\UmbracoBackofficeVisualizer\fonts\fontawesome-webfont.woff2" />
+    <Content Include="App_Plugins\UmbracoBackofficeVisualizer\fonts\FontAwesome.otf" />
     <None Include="packages.config" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="App_Plugins\UmbracoBackofficeVisualizer\css\font-awesome.min.css" />
+    <Content Include="App_Plugins\UmbracoBackofficeVisualizer\fonts\fontawesome-webfont.svg" />
     <Content Include="Umbraco.BackofficeDocumentor.nuspec" />
   </ItemGroup>
   <ItemGroup>
@@ -288,8 +315,8 @@
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>xcopy $(TargetPath) E:\SVN\Doz\src\Doz\Doz.Web\bin  /S /I /E /Y
-cd $(ProjectDir) 
-pack.bat</PostBuildEvent>
+
+xcopy $(ProjectDir)App_Plugins\UmbracoBackofficeVisualizer\*.*  E:\SVN\Doz\src\Doz\Doz.Web\App_Plugins\UmbracoBackofficeVisualizer\ /S /I /E /Y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

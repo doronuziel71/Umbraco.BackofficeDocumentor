@@ -1,0 +1,76 @@
+﻿<h2 id="cmp_{{data.Id}}">
+    <i class="{{data.Icon}}"></i>
+    {{data.Name}}
+    <span ng-if="Inherits || Implements.length">: </span>
+
+    <span ng-if="Inherits">
+        <a class="small" href="#cmp_{{data.Inherits.Id}}">{{data.Inherits.Name}}</a>
+    </span>
+
+    <span ng-if="Inherits && Implements.length ">, </span>
+
+    <span>
+        <a class="small" ng-repeat="imp in data.Imlements" href="#cmp_{{imp.Id}}">
+            {{imp.Name}}
+            <span ng-if="!$last">, </span>
+        </a>
+       
+    </span>
+
+
+</h2>
+<h3>Definitions</h3>
+<table class="table table-bordered table-striped">
+  
+    <tr>
+        <td>Name</td>
+        <td>{{data.Name}}</td>
+    </tr>
+    <tr>
+        <td>Alias</td>
+        <td>{{data.Alias}}</td>
+    </tr>
+    <tr>
+        <td>Icon</td>
+        <td>{{data.Icon}}</td>
+    </tr>
+    <tr>
+        <td>Description</td>
+        <td>{{data.Description}}</td>
+    </tr>
+
+</table>
+
+<div ng-if="data.Properties.Tabs.length">
+    <h3>Properties</h3>
+
+    <table class="table table-bordered table-condensed table-striped">
+        <thead>
+            <tr>
+                <th>Alias</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Data Type</th>
+                <th>Required</th>
+                <th>Regex</th>
+            </tr>
+        </thead>
+
+        <tbody ng-repeat="tab in data.Properties.Tabs">
+            <tr>
+                <td colspan="6" class="text-center"><strong class="h3">{{tab.Name}}</strong></td>
+            </tr>
+            <tr ng-repeat="p in tab.Properties">
+                <td>{{p.Alias}}</td>
+                <td>{{p.Name}}</td>
+                <td>{{p.Description}}</td>
+                <td>{{p.DataTypeName}}</td>
+                <td>{{p.Required}}</td>
+                <td>{{p.Regex}}</td>
+            </tr>
+        </tbody>
+       
+    </table>
+</div>
+
+<div backoffice-documentor-comments comments="data.Comments"></div>

@@ -1,0 +1,11 @@
+﻿<ul class="unstyled">
+    <li ng-repeat="comment in comments track by $index">
+        <input type="text" ng-model="comment" class="span10" />
+        <button type="button" class="btn btn-danger" ng-click="del($index)"><i class="icon-delete"></i></button>
+    </li>
+</ul>
+<div>
+    <textarea  ng-model="newValue" class="span12" ></textarea>
+    <hr />
+    <button type="button" class="btn btn-default" ng-click="add(newValue)">Add Comment</button>
+</div>

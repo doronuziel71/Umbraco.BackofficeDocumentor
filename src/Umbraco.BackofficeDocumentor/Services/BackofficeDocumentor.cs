@@ -36,9 +36,7 @@ namespace Umbraco.BackofficeDocumentor.Services
 
             var allContainers = _services.ContentTypeService.GetContentTypeContainers(allContainerIds);
 
-            var components = contentTypes.Where(cmp => contentTypes.Any(ct => ct.ImplementsIds.Contains(cmp.Id))).ToList();
-
-            model.Components = components;
+        
 
             foreach (var container in allContainers)
             {
@@ -90,7 +88,7 @@ namespace Umbraco.BackofficeDocumentor.Services
         {
             return usedDataTypes.Where(x => x.Id > 0).Select(dt => new DataTypeDescripton
             {
-                Id = dt.Id, Name = dt.Name, PropertyEditorAlias = dt.PropertyEditorAlias, PreValues = _services.DataTypeService.GetPreValuesCollectionByDataTypeId(dt.Id).PreValuesAsDictionary
+                Id = dt.Id, Name = dt.Name, PropertyEditorAlias = dt.PropertyEditorAlias, PreValues = _services.DataTypeService.GetPreValuesCollectionByDataTypeId(dt.Id).PreValuesAsDictionary.ToDictionary(x=>x.Key,x=>x.Value.ToModel())
             }).ToList();
         }
 

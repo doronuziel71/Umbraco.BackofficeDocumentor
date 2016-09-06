@@ -1,0 +1,36 @@
+﻿<h2>{{data.Name}}</h2>
+<h3>Definitions</h3>
+<table class="table table-bordered table-condensed table-striped">
+    <tr>
+        <td>Id</td>
+        <td>{{data.Id}}</td>
+    </tr>
+    <tr>
+        <td>Editor</td>
+        <td>{{data.PropertyEditorAlias}}</td>
+    </tr>
+</table>
+
+<div ng-if="data.PreValues">
+    <h3>Prevalues</h3>
+    <table class="table table-bordered">
+        
+        <tr ng-repeat="(key,value) in data.PreValues">
+            <td>
+
+
+                {{key}}
+            </td>
+            <td>
+
+                <pre ng-if="isJson(value.Value)">@value</pre>
+
+                <span ng-if="!isJson(value.Value)">@value</span>
+
+
+            </td>
+        </tr>
+    </table>
+</div>
+
+

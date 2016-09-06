@@ -1,0 +1,13 @@
+﻿{
+	javascript:[
+		'~/App_Plugins/UmbracoBackofficeVisualizer/main.js',
+		'~/App_Plugins/UmbracoBackofficeVisualizer/services/snapshotService.js',
+		'~/App_Plugins/UmbracoBackofficeVisualizer/list/list.js',
+		'~/App_Plugins/UmbracoBackofficeVisualizer/directives/backofficeSnapshot.js',
+		'~/App_Plugins/UmbracoBackofficeVisualizer/directives/datatypeDescriptor.js',
+		'~/App_Plugins/UmbracoBackofficeVisualizer/directives/doctypeDescriptor.js',
+		'~/App_Plugins/UmbracoBackofficeVisualizer/directives/backofficeDocumentorComments.js'
+],css:[
+'~/App_Plugins/UmbracoBackofficeVisualizer/css/font-awesome.min.css'
+]
+}
