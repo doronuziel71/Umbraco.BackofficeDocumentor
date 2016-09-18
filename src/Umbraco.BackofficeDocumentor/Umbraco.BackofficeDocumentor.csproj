@@ -293,7 +293,9 @@
     <Content Include="App_Plugins\UmbracoBackofficeVisualizer\Views\BackofficeVisualizer\Index.cshtml" />
     <Content Include="App_Plugins\UmbracoBackofficeVisualizer\Views\Web.config" />
     <Content Include="App_Plugins\UmbracoBackofficeVisualizer\directives\backofficeDocumentorComments.js" />
-    <None Include="App_Plugins\UmbracoBackofficeVisualizer\package.manifest" />
+    <None Include="App_Plugins\UmbracoBackofficeVisualizer\package.manifest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="App_Plugins\UmbracoBackofficeVisualizer\fonts\fontawesome-webfont.eot" />
     <Content Include="App_Plugins\UmbracoBackofficeVisualizer\fonts\fontawesome-webfont.ttf" />
     <Content Include="App_Plugins\UmbracoBackofficeVisualizer\fonts\fontawesome-webfont.woff" />
